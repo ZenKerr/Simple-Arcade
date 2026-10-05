@@ -1,6 +1,6 @@
 [project]
 name = "simple_arcade"
-version = "1.0.0"
+version = "1.0.1"
 requires-python = "==3.13.16"
 dependencies = [
     "pygame==2.6.1",
