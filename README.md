@@ -15,7 +15,7 @@ Download and play on [Steam](https://store.steampowered.com/app/2333840).
 
 ### From Source
 
-To run the game from source, ensure you have **Python 3.13** and **uv** installed.
+To run the game from source, ensure you have **uv** installed.
 
 1. Clone the repository:
 
@@ -39,6 +39,8 @@ To run the game from source, ensure you have **Python 3.13** and **uv** installe
 Also, you can build a standalone executable using PyInstaller:
 
 ```shell
+uv sync --group build
+
 uv run pyinstaller build.spec
 ```
 

@@ -2,13 +2,26 @@
 name = "simple_arcade"
 version = "1.0.1"
 requires-python = "==3.13.16"
+authors = [
+    { name = "Ivan Sarnitskii", email = "ivan.sarnitskiy@mail.ru" },
+]
+license = "MIT AND CC0-1.0"
+description = "Simple arcade game"
+readme = "README.md"
 dependencies = [
     "pygame==2.6.1",
-    "pyinstaller==6.22.3",
 ]
+
+[project.urls]
+Homepage = "https://store.steampowered.com/app/2333840"
+Repository = "https://github.com/ZenKerr/Simple-Arcade"
 
 [dependency-groups]
 dev = [
     "ruff==0.16.10",
     "ty==0.0.84",
+]
+build = [
+    "pyinstaller==6.22.3",
+    "pyinstaller-versionfile==3.1.0",
 ]

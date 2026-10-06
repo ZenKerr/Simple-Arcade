@@ -1,8 +1,30 @@
 import sys
+import tomllib
+
+from pyinstaller_versionfile import create_versionfile
 
 sys.path.insert(0, SPECPATH)
 
 from app.services.assets import Assets
+
+with open("pyproject.toml", "rb") as project_information_file:
+    project_information = tomllib.load(project_information_file)["project"]
+
+name = project_information["name"]
+product_name = " ".join(part.capitalize() for part in name.split("_"))
+author = project_information["authors"][0]["name"]
+versionfile_path = "build/versionfile.txt"
+
+create_versionfile(
+    output_file=versionfile_path,
+    version=project_information["version"],
+    company_name=author,
+    file_description=project_information["description"],
+    internal_name=name,
+    legal_copyright=f"Copyright © 2026 {author}",
+    original_filename=f"{product_name}.exe",
+    product_name=product_name,
+)
 
 assets_path = Assets().zip()
 
@@ -29,7 +51,7 @@ exe = EXE(
     analysis.zipfiles,
     analysis.datas,
     (),
-    name="Simple Arcade",
+    name=product_name,
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -42,4 +64,5 @@ exe = EXE(
     codesign_identity=None,
     entitlements_file=None,
     icon="assets/images/icon.ico",
+    version=versionfile_path,
 )
