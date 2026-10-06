@@ -7,14 +7,14 @@ from app.constants import FPS
 from app.types import Color, ColorSource
 
 if TYPE_CHECKING:
-    from app.data import Data
+    from app.services.app_data import AppData
 
 
 def get_color(color_source: ColorSource) -> Color:
     return color_source if isinstance(color_source, tuple) else color_source()
 
 
-def relative_scale(surface: Surface, scale: float, app_data: "Data") -> Surface:
+def relative_scale(surface: Surface, scale: float, app_data: "AppData") -> Surface:
     scaled_height = app_data.height * scale
 
     return transform.scale(surface, Vector2(surface.get_size()) * scaled_height)

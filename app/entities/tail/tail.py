@@ -7,7 +7,7 @@ from app.entities.tail.segment import TailSegment
 from app.types import ColorSource
 
 if TYPE_CHECKING:
-    from app.data import Data
+    from app.services.app_data import AppData
 
 
 class Tail:
@@ -22,7 +22,7 @@ class Tail:
     )
 
     add_counter: float
-    app_data: "Data"
+    app_data: "AppData"
     fade_rate: float
     get_color_source: Callable[[], ColorSource]
     head: Vector2
@@ -31,7 +31,7 @@ class Tail:
 
     def __init__(
         self,
-        app_data: "Data",
+        app_data: "AppData",
         get_color_source: Callable[[], ColorSource],
         head_radius: float,
     ):

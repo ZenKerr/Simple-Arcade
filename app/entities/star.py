@@ -7,13 +7,13 @@ from app.types import Color
 from app.utils import smooth
 
 if TYPE_CHECKING:
-    from app.data import Data
+    from app.services.app_data import AppData
 
 
 class Star:
     __slots__ = ("app_data", "color", "position", "radius", "speed")
 
-    app_data: "Data"
+    app_data: "AppData"
     color: Color
     position: Vector2
     radius: float
@@ -21,7 +21,7 @@ class Star:
 
     def __init__(
         self,
-        app_data: "Data",
+        app_data: "AppData",
         size_coefficient: float,
         position: Vector2,
         speed: Vector2,

@@ -8,8 +8,8 @@ from pygame.math import Vector2, clamp
 from app.entities.tail import Tail
 
 if TYPE_CHECKING:
-    from app.data import Data
-    from app.screen_manager.screens import PlayScreen
+    from app.screens import PlayScreen
+    from app.services.app_data import AppData
 
 
 class Player:
@@ -22,14 +22,14 @@ class Player:
         "tail",
     )
 
-    app_data: "Data"
+    app_data: "AppData"
     play_screen: "PlayScreen"
     position: Vector2
     radius: float
     speed: float
     tail: Tail
 
-    def __init__(self, app_data: "Data", play_screen: "PlayScreen"):
+    def __init__(self, app_data: "AppData", play_screen: "PlayScreen"):
         self.app_data = app_data
         self.play_screen = play_screen
 

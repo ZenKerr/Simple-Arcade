@@ -6,7 +6,7 @@ from pygame import Surface, Vector2
 from app.entities.tail import Tail
 
 if TYPE_CHECKING:
-    from app.data import Data
+    from app.services.app_data import AppData
 
 
 class Enemy:
@@ -20,7 +20,7 @@ class Enemy:
         "wait_delete",
     )
 
-    app_data: "Data"
+    app_data: "AppData"
     position: Vector2
     radius: float
     speed: Vector2
@@ -28,7 +28,7 @@ class Enemy:
     tail: Tail
     wait_delete: bool
 
-    def __init__(self, app_data: "Data", target: Vector2):
+    def __init__(self, app_data: "AppData", target: Vector2):
         self.app_data = app_data
 
         self.radius = uniform(app_data.height * 0.01, app_data.height * 0.02)

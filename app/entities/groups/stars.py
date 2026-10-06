@@ -1,6 +1,6 @@
 from pygame import Surface, Vector2
 
-from app.entities.star import Star
+from app.entities import Star
 
 
 class Stars:

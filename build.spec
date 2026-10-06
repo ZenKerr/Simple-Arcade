@@ -2,7 +2,7 @@ import sys
 
 sys.path.insert(0, SPECPATH)
 
-from app.assets import Assets
+from app.services.assets import Assets
 
 assets_path = Assets().zip()
 

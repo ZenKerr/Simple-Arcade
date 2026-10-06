@@ -3,13 +3,13 @@ import ctypes
 import pygame
 from pygame import display, font, mixer
 
-from app.data import Data
+from app.services.app_data import AppData
 
 
 class App:
     __slots__ = ("data",)
 
-    data: Data
+    data: AppData
 
     def __init__(self):
         font.init()
@@ -22,7 +22,7 @@ class App:
         display_surface = display.set_mode((0, 0), pygame.DOUBLEBUF)
         display_surface.set_alpha(None)
 
-        self.data = Data(display_surface)
+        self.data = AppData(display_surface)
 
         display.set_caption("Simple Arcade")
         display.set_icon(self.data.assets.get_image("icon.png"))

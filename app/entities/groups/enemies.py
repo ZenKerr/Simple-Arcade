@@ -7,18 +7,18 @@ from app.entities.enemy import Enemy
 from app.entities.player import Player
 
 if TYPE_CHECKING:
-    from app.data import Data
+    from app.services.app_data import AppData
 
 
 class Enemies:
     __slots__ = ("app_data", "enemies", "reset_timer", "timer")
 
-    app_data: "Data"
+    app_data: "AppData"
     enemies: list[Enemy]
     reset_timer: Callable[[], float]
     timer: float
 
-    def __init__(self, app_data: "Data", reset_timer: Callable[[], float]):
+    def __init__(self, app_data: "AppData", reset_timer: Callable[[], float]):
         self.app_data = app_data
 
         self.enemies = []

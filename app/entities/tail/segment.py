@@ -6,20 +6,20 @@ from app.types import Color, ColorSource
 from app.utils import get_color
 
 if TYPE_CHECKING:
-    from app.data import Data
+    from app.services.app_data import AppData
 
 
 class TailSegment:
     __slots__ = ("app_data", "color_source", "position", "radius")
 
-    app_data: "Data"
+    app_data: "AppData"
     color_source: Color
     position: Vector2
     radius: float
 
     def __init__(
         self,
-        app_data: "Data",
+        app_data: "AppData",
         radius: float,
         position: Vector2,
         color_source: ColorSource,
