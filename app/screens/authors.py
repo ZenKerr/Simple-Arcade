@@ -1,4 +1,3 @@
-from math import cos
 from platform import python_version
 from sys import exit
 from typing import TYPE_CHECKING
@@ -28,13 +27,13 @@ class AuthorsScreen(Screen):
         "logo_position_coefficient",
         "logo_rect",
         "music_author",
+        "music_rect",
         "pygame_version",
         "pygame_version_rect",
         "pyinstaller_version",
         "pyinstaller_version_rect",
         "python_version",
         "python_version_rect",
-        "sound_rect",
     )
 
     app_data: "AppData"
@@ -45,13 +44,13 @@ class AuthorsScreen(Screen):
     logo_position_coefficient: float
     logo_rect: Rect
     music_author: Surface
+    music_rect: Rect
     pygame_version: Surface
     pygame_version_rect: Rect
     pyinstaller_version: Surface
     pyinstaller_version_rect: Rect
     python_version: Surface
     python_version_rect: Rect
-    sound_rect: Rect
 
     def __init__(self, app_data: "AppData"):
         self.app_data = app_data
@@ -67,16 +66,28 @@ class AuthorsScreen(Screen):
 
         self.redraw()
 
+        self.logo = relative_scale(
+            app_data.assets.get_image("logo.png").convert_alpha(),
+            0.0004,
+            app_data,
+        )
+        self.logo_rect = self.logo.get_rect(
+            center=(
+                self.app_data.half_width,
+                self.app_data.height / 3.5,
+            )
+        )
+
         self.code_rect = self.code_author.get_rect(
             center=(
                 self.app_data.half_width,
-                self.app_data.height / 2,
+                self.app_data.height / 1.7,
             ),
         )
-        self.sound_rect = self.music_author.get_rect(
+        self.music_rect = self.music_author.get_rect(
             center=(
                 self.app_data.half_width,
-                self.app_data.height / 1.7,
+                self.app_data.height / 1.45,
             ),
         )
 
@@ -99,18 +110,6 @@ class AuthorsScreen(Screen):
                 versions_x,
                 self.app_data.height * 0.97,
             ),
-        )
-
-        self.logo = relative_scale(
-            app_data.assets.get_image("studio_logo.png").convert_alpha(),
-            0.0004,
-            app_data,
-        )
-        self.logo_rect = self.logo.get_rect(
-            center=(
-                self.app_data.half_width,
-                self.calculate_logo_y(),
-            )
         )
 
         self.reset()
@@ -173,14 +172,14 @@ class AuthorsScreen(Screen):
 
         self.back_button.draw(surface)
 
+        surface.blit(self.logo, self.logo_rect)
+
         surface.blit(self.code_author, self.code_rect)
-        surface.blit(self.music_author, self.sound_rect)
+        surface.blit(self.music_author, self.music_rect)
 
         surface.blit(self.pygame_version, self.pygame_version_rect)
         surface.blit(self.python_version, self.python_version_rect)
         surface.blit(self.pyinstaller_version, self.pyinstaller_version_rect)
-
-        surface.blit(self.logo, self.logo_rect)
 
     def run(self) -> tuple[Screen, bool]:
         while True:
@@ -200,15 +199,9 @@ class AuthorsScreen(Screen):
             self.back_button.update()
 
             self.logo_position_coefficient += 0.0025
-            self.logo_rect.centery = self.calculate_logo_y()
 
             self.draw(self.app_data.display_surface)
 
             display.update()
 
             self.app_data.clock.tick(FPS)
-
-    def calculate_logo_y(self) -> int:
-        offset = self.app_data.height * cos(self.logo_position_coefficient) / 20
-
-        return int(self.app_data.height * 0.23 + offset)
