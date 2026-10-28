@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING
 
+import pygame
 from pygame import Rect, Surface, draw, mouse
 
 from app.constants import BACKGROUND_COLOR
@@ -23,8 +24,8 @@ class VolumeSlider:
 
         size = (app_data.height * 0.05, app_data.half_height)
 
-        self.surface = Surface(size).convert_alpha()
-        self.inner_surface = Surface(size).convert()
+        self.surface = Surface(size, pygame.SRCALPHA).convert_alpha()
+        self.inner_surface = Surface(size, pygame.SRCALPHA).convert_alpha()
 
         self.rect = self.surface.get_rect(
             topleft=(
@@ -39,32 +40,38 @@ class VolumeSlider:
         self.previous_clicked = False
 
     def redraw(self):
-        self.surface.fill(BACKGROUND_COLOR)
-        self.inner_surface.fill(BACKGROUND_COLOR)
-
         width = self.app_data.height * 0.05
+        rect = (
+            0,
+            0,
+            width,
+            self.app_data.half_height,
+        )
         border_radius = self.app_data.height // 40
 
         draw.rect(
             self.surface,
+            BACKGROUND_COLOR,
+            rect,
+            border_radius=border_radius,
+        )
+        draw.rect(
+            self.inner_surface,
+            BACKGROUND_COLOR,
+            rect,
+            border_radius=border_radius,
+        )
+
+        draw.rect(
+            self.surface,
             (0, 0, 0, 0),
-            (
-                0,
-                0,
-                width,
-                self.app_data.half_height,
-            ),
+            rect,
             border_radius=border_radius,
         )
         draw.rect(
             self.surface,
             self.app_data.text_color,
-            (
-                0,
-                0,
-                width,
-                self.app_data.half_height,
-            ),
+            rect,
             border_radius=border_radius,
             width=self.app_data.height // 200,
         )

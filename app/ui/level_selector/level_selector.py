@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING
 
+import pygame
 from pygame import Rect, Surface, draw
 
 from app.constants import BACKGROUND_COLOR
@@ -23,7 +24,7 @@ class LevelSelector:
 
         size = (app_data.height * 0.3, app_data.height * 0.59)
 
-        self.surface = Surface(size).convert()
+        self.surface = Surface(size, pygame.SRCALPHA).convert_alpha()
         self.rect = self.surface.get_rect(
             topright=(
                 app_data.width,
@@ -45,7 +46,15 @@ class LevelSelector:
             level.reset()
 
     def redraw(self):
-        self.surface.fill(BACKGROUND_COLOR)
+        rect = (0, 0, self.app_data.height * 0.4, self.app_data.height * 0.59)
+        border_radius = self.app_data.height // 40
+
+        draw.rect(
+            self.surface,
+            BACKGROUND_COLOR,
+            rect,
+            border_radius=border_radius,
+        )
 
         title = relative_scale(
             self.app_data.font.render(
@@ -69,13 +78,8 @@ class LevelSelector:
         draw.rect(
             self.surface,
             self.app_data.text_color,
-            (
-                0,
-                0,
-                self.app_data.height * 0.4,
-                self.app_data.height * 0.59,
-            ),
-            border_radius=self.app_data.height // 40,
+            rect,
+            border_radius=border_radius,
             width=self.app_data.height // 200,
         )
 

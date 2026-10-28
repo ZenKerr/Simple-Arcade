@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING
 
+import pygame
 from pygame import Rect, Surface, Vector2, draw, transform
 
 from app.constants import BACKGROUND_COLOR
@@ -67,20 +68,25 @@ class Button[T: ButtonContent]:
 
     def redraw(self):
         source_surface_size = self.size * self.app_data.height
+        rect = (0, 0, source_surface_size.x, source_surface_size.y)
+        border_radius = self.app_data.height // 40
 
-        self.source_surface = Surface(source_surface_size).convert()
-        self.source_surface.fill(BACKGROUND_COLOR)
+        self.source_surface = Surface(
+            source_surface_size,
+            pygame.SRCALPHA,
+        ).convert_alpha()
+        draw.rect(
+            self.source_surface,
+            BACKGROUND_COLOR,
+            rect,
+            border_radius=border_radius,
+        )
 
         draw.rect(
             self.source_surface,
             self.app_data.text_color,
-            (
-                0,
-                0,
-                source_surface_size.x,
-                source_surface_size.y,
-            ),
-            border_radius=self.app_data.height // 40,
+            rect,
+            border_radius=border_radius,
             width=self.app_data.height // 200,
         )
 
