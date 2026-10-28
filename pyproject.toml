@@ -18,8 +18,8 @@ Repository = "https://github.com/ZenKerr/Simple-Arcade"
 
 [dependency-groups]
 dev = [
-    "ruff==0.16.10",
-    "ty==0.0.84",
+    "ruff==0.17.3",
+    "ty==0.0.93",
 ]
 build = [
     "pyinstaller==6.22.3",
